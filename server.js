@@ -5,12 +5,13 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 
-
-var articleOne = {
-    title: 'Article One ! Rohit Bhargava',
-    heading: 'Article One',
-    date: 'Aug 15, 2017',
-    content: `<p>
+var articles = {
+    'article-one': {
+        title: 'Article One ! Rohit Bhargava',
+        heading: 'Article One',
+        date: 'Aug 11, 2017',
+        content: `
+                <p>
                     This is the content for my first article. This is the content for my first article. This is the content for my first article. This is the content for my first article. This is the content for my first article.This is the content for my first article.
                 </p>
                 <p>
@@ -19,8 +20,39 @@ var articleOne = {
                 <p>
                     This is the content for my first article. This is the content for my first article. This is the content for my first article. This is the content for my first article. This is the content for my first article.This is the content for my first article.'
                 </p>`    
-    
+    },
+    'article-two: {
+        title: 'Article Two ! Rohit Bhargava',
+        heading: 'Article Two',
+        date: 'Aug 13, 2017',
+        content: `
+                <p>
+                    This is the content for my first article. This is the content for my first article. This is the content for my first article. This is the content for my first article. This is the content for my first article.This is the content for my first article.
+                </p>
+                <p>
+                    This is the content for my first article. This is the content for my first article. This is the content for my first article. This is the content for my first article. This is the content for my first article.This is the content for my first article.
+                </p>
+                <p>
+                    This is the content for my first article. This is the content for my first article. This is the content for my first article. This is the content for my first article. This is the content for my first article.This is the content for my first article.'
+                </p>`  
+    },
+    'article-three': {
+        title: 'Article Three ! Rohit Bhargava',
+        heading: 'Article Three',
+        date: 'Aug 15, 2017',
+        content: `
+                <p>
+                    This is the content for my third article. This is the content for my third article. This is the content for my third article. This is the content for my third article. This is the content for my third article.This is the content for my third article.
+                </p>
+                <p>
+                    This is the content for my third article. This is the content for my third article. This is the content for my third article. This is the content for my third article. This is the content for my third article.This is the content for my third article.
+                </p>
+                <p>
+                    This is the content for my third article. This is the content for my third article. This is the content for my third article. This is the content for my third article. This is the content for my third article.This is the content for my third article.
+                </p>`  
+    }
 };
+
 function createTemplate (data) {
     var title = data.title;
     var heading = data.heading;
@@ -62,16 +94,10 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/article-one', function (req, res){
-  res.send(createTemplate(articleOne));
-});
-
-app.get('/article-two', function (req, res){
-  res.sendFile(path.join(__dirname, 'ui','article-two.html'));
-});
-
-app.get('/article-three', function (req, res){
-  res.sendFile(path.join(__dirname, 'ui','article-three.html'));
+app.get('/:articleName', function (req, res){
+    // articleName == article-one
+    // articles[articleName] == {} content object for article one
+  res.send(createTemplate(articles[articleName]));
 });
 
 app.get('/ui/style.css', function (req, res) {
