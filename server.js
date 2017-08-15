@@ -67,7 +67,6 @@ function createTemplate (data) {
             </title>
             <meta name="viewport" content="width=device-width, initial-scale=1"/>
             <link href="/ui/style.css" rel="stylesheet" />
-            <link rel="icon" href="/favicon.ico" />
         </head>
         <body>
             <div class="container">
@@ -109,10 +108,6 @@ app.get('/ui/style.css', function (req, res) {
 
 app.get('/ui/main.js', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'main.js'));
-});
-
-app.get('/favicon.ico', function (req, res) {
-  res.sendFile(path.join(__dirname, '/', 'favicon.ico'));
 });
 
 app.get('/ui/madi.png', function (req, res) {
