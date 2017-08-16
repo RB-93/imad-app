@@ -122,10 +122,11 @@ app.get('/ui/madi.png', function (req, res) {
 
 var names = [];
 app.get('/submit-name/:name', function (req, res) {
-   var name = req.params.name;
-   names.push(name);
-   // JSON = JavaScript Object Notation
-   res.send(JSON.stringify(names));
+    // Get the name from the request
+    var name = req.params.name;
+    names.push(name);
+    // JSON = JavaScript Object Notation
+    res.send(JSON.stringify(names));
 });
 
 // Do not change port, otherwise your app won't run on IMAD servers
