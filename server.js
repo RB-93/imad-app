@@ -122,7 +122,7 @@ app.get('/ui/madi.png', function (req, res) {
 
 var names = [];
 app.get('/submit-name/:name', function () {
-   var name;
+   var name = req.params.name;
    names.push(name);
    // JSON = JavaScript Object Notation
    res.stringify(JSON, stringify(names));
