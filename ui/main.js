@@ -2,8 +2,9 @@
 var button = document.getElementById('counter');
 
 button.onclick = function () {
-    // Make a request to the counter endpoint
+    // Create a request object
     var request = new XMLHttpRequest();
+    
     // Capture the response and stotre it in a variable.
     request.onreadystatechange = function () {
         if(request.readyState === XMLHttpRequest.DONE) {
@@ -30,15 +31,30 @@ var nameInput = document.getElementById('name');
 var name = nameInput.value;
 var submit = document.getElementById('submit_btn');
 submit.onclick = function (){
-    // Make the request to the server and send the name.
- 
-    // Capture a list of names and render it as a list.
-    var names = ['name1', 'name2', 'name3', 'name4'];
-    var list = '';
     
-    for(var i = 0; i < names.length; i++) {
-        list += '<li>' + names[i] + '</li>';
-    }
-    var ul = document.getElementById('nameList');
-    ul.innerHTML = list;
+    // Create a request object
+    var request = new XMLHttpRequest();
+    
+    // Capture the response and stotre it in a variable.
+    request.onreadystatechange = function () {
+        if(request.readyState === XMLHttpRequest.DONE) {
+            // Take some action
+            if(request.status === 200) {
+                // Capture a list of names and render it as a list.
+                var names = ['name1', 'name2', 'name3', 'name4'];
+                var list = '';
+                
+                for(var i = 0; i < names.length; i++) {
+                    list += '<li>' + names[i] + '</li>';
+                }
+                var ul = document.getElementById('nameList');
+                ul.innerHTML = list;    
+            }
+        }
+        //not done yet
+    };
+    // Make the request
+    
+    request.open('GET', 'http://rohitbhargava586.imad.hasura-app.io/counter', true);
+    request.send(null);
 };
