@@ -150,7 +150,7 @@ app.get('/articles/:articleName', function (req, res) {
                res.status(404).send('Article not found.');
            }
            else {
-               var articleData = result.rows(0); // article data object to get the values from the database
+               var articleData = result.rows[0]; // article data object to get the values from the database
                res.send(createTemplate(articleData));
            }
        }
