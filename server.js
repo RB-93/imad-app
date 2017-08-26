@@ -94,6 +94,23 @@ app.post('/create-user', function(req, res) {
    });
 });
 
+app.post('/login', function(req, res) {
+   var username = req.body.username;
+   var password = req.body.password;
+   //create salt
+   var salt = crypto.randomBytes(128).toString('hex');
+   //create password
+   var dbString = hash(password, salt);
+   //Save the password hash string into the database
+   pool.query('SELECT * FROM "user" WHERE username=$1', [username], function(err, result) {
+       if(err) {
+            res.status(500),send(err.toString());
+        }
+        else {
+            res.send('Username successfully created: ' + username);
+        }
+});
+
 var pool = new Pool(config);     // Pool ready
 app.get('/test-db', function (req, res) {
     // make select a request
@@ -104,7 +121,29 @@ app.get('/test-db', function (req, res) {
             res.status(500),send(err.toString());
         }
         else {
-            res.send(JSON.stringify(result.rows));
+            if(result.rows.length === 0) {
+                res.status(403).send('username/password is invalid');
+            }
+            else { // username exists
+                // Match the password
+                
+                // Extract the passowrd stroed in the database
+                var dbString = result.rows[0].password;
+                
+                // Split the passowrd from saltby a $ symbol
+                dbString.split('$')[2]; // salt value is at third position in the hash value
+                
+                // Create the hash using salt based on the password submitted  and the original salt
+                var hashedPassword = hash(password, salt);
+                
+                // Test if the hashedPassword is exactly as stored in database
+                if(hashedPassword = db.String) {
+                    res.send('Credentials Correct')
+                }
+                else {
+                    res.send(403).send('username/password is invalid');
+                }
+            }
         }
     });
 });
