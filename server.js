@@ -79,7 +79,7 @@ app.post('/create-user', function(req, res) {
    var username = req.body.username;
    var password = req.body.password;
    //create salt
-   var salt = crypto.getRandomByte(128).toString('hex');
+   var salt = crypto.randomByte(128).toString('hex');
    //create password
    var dbString = hash(password, salt);
    //Save the password hash string into the database
