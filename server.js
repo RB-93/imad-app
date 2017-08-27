@@ -116,7 +116,7 @@ app.post('/login', function(req, res) {
             // Create hash using the salt value based on the password submitted and original salt
             var hashedPassword = hash(password, salt);
             // Test if the hashed password is exaclty equal to value stored in database
-            if(hashedPassword == dbString) {
+            if(hashedPassword === dbString) {
                 res.send('credentials correct.');
             }
             else {
