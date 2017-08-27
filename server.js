@@ -157,7 +157,7 @@ app.get('/test-db', function (req, res) {
                 var hashedPassword = hash(password, salt);
                 
                 // Test if the hashedPassword is exactly as stored in database
-                if(hashedPassword = db.String) {
+                if(hashedPassword = dbString) {
                     res.send('Credentials Correct')
                 }
                 else {
