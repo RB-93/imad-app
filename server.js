@@ -3,6 +3,7 @@ var morgan = require('morgan');
 var path = require('path');
 var crypto = require('crypto');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 // create a pool
 var Pool = require('pg').Pool;
@@ -19,6 +20,10 @@ var config = {
 var app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json());
+app.use(session({
+    secret: 'someRandomSecret Value',
+    cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 }
+}));
 
 function createTemplate (data) {
     var title = data.title;
@@ -117,6 +122,13 @@ app.post('/login', function(req, res) {
             var hashedPassword = hash(password, salt);
             // Test if the hashed password is exaclty equal to value stored in database
             if(hashedPassword === dbString) {
+                // Set the session
+                req.session.auth = {userId: result.rows[0].id};
+                // We have set session object on request body
+                // i.e., set cookie with a session-id
+                // Internally, on the server side, it maps the session-id to an object
+                // which contains the value {auth: {userId}}
+                
                 res.send('credentials correct.');
             }
             else {
@@ -125,6 +137,15 @@ app.post('/login', function(req, res) {
         }
     }
    });
+});
+
+app.get('/check-login', function (req, res) {
+    if(req.session && req.session.auth && req.session.auth.userId) {
+        res.send('You are logged in: ' + req.session.auth.userId.toString());
+    }
+    else {
+        res.send('You are not logged in');
+    }
 });
 
 var pool = new Pool(config);     // Pool ready
