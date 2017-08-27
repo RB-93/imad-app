@@ -111,7 +111,7 @@ app.post('/login', function(req, res) {
             // Extract the password stored in database
             var dbString = result.rows[0].password;
             // Split the password from salt by $ symbol
-            db.String.split('$')[2];  // salt value is 3rd in the hash 
+            dbString.split('$')[2];  // salt value is 3rd in the hash 
             
             // Create hash using the salt value based on the password submitted and original salt
             var hashedPassword = hash(password, salt);
@@ -134,7 +134,7 @@ app.get('/test-db', function (req, res) {
     
     pool.query('SELECT * FROM test', function(err, result) {
         if(err){ //if there is an error
-            res.status(500).send(err.toString);
+            res.status(500).send(err.toString());
         }
         else { // send the result as JSON string
             res.send(JSON.stringify(result.rows));  // result.rows, for array of object.
