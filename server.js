@@ -134,36 +134,14 @@ app.post('/login', function(req, res) {
 var pool = new Pool(config);     // Pool ready
 app.get('/test-db', function (req, res) {
     // make select a request
-    // reurn the response with the results
+    // return the response with the results
     
     pool.query('SELECT * FROM test', function(err, result) {
-        if(err) {
-            res.status(500),send(err.toString());
+        if(err){ //if there is an error
+            res.status(500).send(err.toString);
         }
-        else {
-            if(result.rows.length === 0) {
-                res.status(403).send('username/password is invalid');
-            }
-            else { // username exists
-                // Match the password
-                
-                // Extract the passowrd stroed in the database
-                var dbString = result.rows[0].password;
-                
-                // Split the passowrd from saltby a $ symbol
-                dbString.split('$')[2]; // salt value is at third position in the hash value
-                
-                // Create the hash using salt based on the password submitted  and the original salt
-                var hashedPassword = hash(password, salt);
-                
-                // Test if the hashedPassword is exactly as stored in database
-                if(hashedPassword = dbString) {
-                    res.send('Credentials Correct')
-                }
-                else {
-                    res.send(403).send('username/password is invalid');
-                }
-            }
+        else { // send the result as JSON string
+            res.send(JSON.stringify(result.rows));  // result.rows, for array of object.
         }
     });
 });
@@ -196,7 +174,7 @@ app.get('/articles/:articleName', function (req, res) {
                res.status(404).send('Article not found.');
            }
            else {
-               var articleData = result.rows[0]; // article data object to get the values from the database
+               var articleData = result.rows[0]; // articleData object to get the values from the database
                res.send(createTemplate(articleData));
            }
        }
