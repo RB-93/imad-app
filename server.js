@@ -108,7 +108,7 @@ app.post('/login', function(req, res) {
             }
             else {  // username exists
             // Match the password
-            //Extract the password stored in database
+            // Extract the password stored in database
             var dbString = result.rows[0].password;
             // Split the password from salt by $ symbol
             db.String.split('$')[2];  // salt value is 3rd in the hash 
