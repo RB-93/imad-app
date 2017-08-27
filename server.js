@@ -111,7 +111,7 @@ app.post('/login', function(req, res) {
             // Extract the password stored in database
             var dbString = result.rows[0].password;
             // Split the password from salt by $ symbol
-            dbString.split('$')[2];  // salt value is 3rd in the hash 
+            var salt = dbString.split('$')[2];  // salt value is 3rd in the hash 
             
             // Create hash using the salt value based on the password submitted and original salt
             var hashedPassword = hash(password, salt);
