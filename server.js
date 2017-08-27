@@ -108,7 +108,7 @@ app.post('/login', function(req, res) {
         }
         else {
             if(result.rows.length === 0) {
-                res.status(403).send0('username/password is invalid');
+                res.status(403).send('username/password is invalid');
             }
             else {  // username exists
             // Match the password
@@ -118,9 +118,9 @@ app.post('/login', function(req, res) {
             db.String.split('$')[2];  // salt value is 3rd in the hash 
             
             // Create hash using the salt value based on the password submitted and original salt
-            var hashedString = hash(password, salt);
+            var hashedPassword = hash(password, salt);
             // Test if the hashed password is exaclty equal to value stored in database
-            if(hashedpassword == dbString) {
+            if(hashedPassword == dbString) {
                 res.send('credentials correct.');
             }
             else {
