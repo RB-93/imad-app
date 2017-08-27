@@ -103,12 +103,32 @@ app.post('/login', function(req, res) {
    var dbString = hash(password, salt);
    //Save the password hash string into the database
    pool.query('SELECT * FROM "user" WHERE username=$1', [username], function(err, result) {
-       if(err) {
+        if(err) {
             res.status(500),send(err.toString());
         }
         else {
-            res.send('Username successfully created: ' + username);
+            if(result.rows.length === 0) {
+                res.status(403).send0('username/password is invalid');
+            }
+            else {  // username exists
+            // Match the password
+            //Extract the password stored in database
+            var dbString = result.rows[0].password;
+            // Split the password from salt by $ symbol
+            db.String.split('$')[2];  // salt value is 3rd in the hash 
+            
+            // Create hash using the salt value based on the password submitted and original salt
+            var hashedString = hash(password, salt);
+            // Test if the hashed password is exaclty equal to value stored in database
+            if(hashedpassword == dbString) {
+                res.send('credentials correct.');
+            }
+            else {
+                res.status(403).send('username/password is invalid');
+            }
         }
+    }
+   });
 });
 
 var pool = new Pool(config);     // Pool ready
