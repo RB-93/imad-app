@@ -146,11 +146,11 @@ app.post('/login', function(req, res) {
                 res.send(JSON.parse('{"message": "credential correct"}'));
             }
             else {
-                // res.status(403).send('username/password is invalid');
+                res.status(403).send('username/password is invalid');
                 
                 // For Android app MyBlog
-                res.setHeader('Content-Type', 'application/json');
-                res.status(403).send(JSON.parse('{"message": "username/password is invalid"}'));
+              //  res.setHeader('Content-Type', 'application/json');
+              //  res.status(403).send(JSON.parse('{"message": "username/password is invalid"}'));
             }
         }
     }
