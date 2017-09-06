@@ -105,7 +105,7 @@ app.post('/login', function(req, res) {
    
    pool.query('SELECT * FROM "user" WHERE username=$1', [username], function(err, result) {
         if(err) {
-            res.status(500).send(JSON.stringify(err.toString()));
+            res.status(500).send(err.toString());
         }
         else {
             if(result.rows.length === 0) {
@@ -129,7 +129,8 @@ app.post('/login', function(req, res) {
                 // Internally, on the server side, it maps the session-id to an object
                 // which contains the value {auth: {userId}}
                 
-                res.send('credentials correct.');
+                res.setHeader('Content-Type', 'application/json');
+                res.send(JSON.parse('{"message": "Credentials Correct"}'));
             }
             else {
                 res.status(403).send('username/password is invalid');
