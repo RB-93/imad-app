@@ -94,7 +94,11 @@ app.post('/create-user', function(req, res) {
             res.status(500).send(err.toString());
         }
         else {
-            res.send('Username successfully created: ' + username);
+           // res.send('Username successfully created: ' + username);
+           
+           // For Android app MyBlog
+           res.setHeader('Content-Type', 'application/json');
+           res.send(JSON.parse('{"message": "Username successfully created"}'));
         }
    });
 });
@@ -109,7 +113,11 @@ app.post('/login', function(req, res) {
         }
         else {
             if(result.rows.length === 0) {
-                res.status(403).send('username/password is invalid');
+                // res.status(403).send('username/password is invalid');
+                
+                // For Android app MyBlog
+                res.setHeader('Content-Type', 'application/json');
+                res.status(403).send(JSON.parse('{"messgae": "username/password is invalid"}'));
             }
             else {  // username exists
             // Match the password
@@ -129,11 +137,18 @@ app.post('/login', function(req, res) {
                 // Internally, on the server side, it maps the session-id to an object
                 // which contains the value {auth: {userId}}
                 
+                //res.send('credentials correct.');
+                
+                // For Android app MyBlog
                 res.setHeader('Content-Type', 'application/json');
-                res.send(JSON.parse('{"message": "Credentials Correct"}'));
+                res.send(JSON.parse('{"message": "credential correct"}'));
             }
             else {
-                res.status(403).send('username/password is invalid');
+                // res.status(403).send('username/password is invalid');
+                
+                // For Android app MyBlog
+                res.setHeader('Content-Type', 'application/json');
+                res.status(403).send(JSON.parse('{"messgae": "username/password is invalid"}'));
             }
         }
     }
