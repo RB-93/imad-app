@@ -98,7 +98,7 @@ app.post('/create-user', function(req, res) {
            
            // For Android app MyBlog
            res.setHeader('Content-Type', 'application/json');
-           res.send(JSON.parse('{"message": "Username successfully created"}'));
+           res.send(JSON.parse('{"message": "User succesfully created: ${username}"}'));
         }
    });
 });
