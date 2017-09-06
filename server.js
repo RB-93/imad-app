@@ -117,7 +117,7 @@ app.post('/login', function(req, res) {
                 
                 // For Android app MyBlog
                 res.setHeader('Content-Type', 'application/json');
-                res.status(403).send(JSON.parse('{"messgae": "username/password is invalid"}'));
+                res.status(403).send(JSON.parse('{"message": "username/password is invalid"}'));
             }
             else {  // username exists
             // Match the password
