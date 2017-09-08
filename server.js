@@ -95,7 +95,7 @@ app.post('/create-user', function(req, res) {
            
            
             res.setHeader('Content-Type', 'application/json');
-            res.status(500).send(JSON.parse('{"error": "err".toString()}'));
+            res.status(500).send(JSON.stringify('{"error": err.toString()}'));
         }
         else {
             //res.send('Username successfully created: ' + username);
