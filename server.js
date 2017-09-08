@@ -112,6 +112,7 @@ app.post('/login', function(req, res) {
    
    pool.query('SELECT * FROM "user" WHERE username=$1', [username], function(err, result) {
         if(err) {
+            res.setHeader('Content-Type', 'application/json');
             res.status(500).send(JSON.parse('{"error": err.toString()}'));
         }
         else {
