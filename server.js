@@ -95,20 +95,9 @@ app.post('/create-user', function(req, res) {
            res.status(500).send(err.toString());
         }
         else {
-            if(result.rows.length === 0) {
-                //res.status(403).send('username/password is invalid');
-                
-                // For Android app MyBlog
-                res.setHeader('Content-Type', 'application/json');
-                res.status(403).send(JSON.parse('{"error": "username/password is invalid"}'));
-            //res.send('Username successfully created: ' + username);
-            }
-            else {
-                // For Android app MyBlog
-                res.setHeader('Content-Type', 'application/json');
-                res.send(JSON.parse('{"message":"User successfully created: ' + username + ' "} ') );
-            }
-
+           // For Android app MyBlog
+           res.setHeader('Content-Type', 'application/json');
+           res.send(JSON.parse('{"message":"User successfully created: ' + username + ' "} ') );
         }
    });
 });
