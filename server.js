@@ -95,7 +95,7 @@ app.post('/create-user', function(req, res) {
            res.status(500).send(err.toString());
         }
         else {
-            if(username.value  === "" || password.value === "") {
+            if(result.rows.length === 0) {
                 //res.status(403).send('username/password is invalid');
                 
                 // For Android app MyBlog
