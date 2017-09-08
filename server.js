@@ -214,7 +214,7 @@ app.get('/get-articles/:articleName', function (req, res) {
            }
            else {
                var articleData = result.rows[0]; // articleData object to get the values from the database
-               res.send(createTemplate(articleData));
+               res.send(JSON.parse(createTemplate(articleData)));
            }
        }
     });
