@@ -200,7 +200,7 @@ app.get('/submit-name', function (req, res) { // URL:/submit-name?name=xxxx
     res.send(JSON.stringify(names));
 });
 
-app.get('/get-articles/articleName', function (req, res) {
+app.get('/get-articles/:articleName', function (req, res) {
     // articleName == article-one
     // articles[articleName] == {} content object for article one
     
@@ -214,7 +214,7 @@ app.get('/get-articles/articleName', function (req, res) {
            }
            else {
                var articleData = result.rows[0]; // articleData object to get the values from the database
-               res.send(createTemplate(articleData));
+               res.send(JSON.parse('{createTemplate(articleData)}'));
            }
        }
     });
