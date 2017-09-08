@@ -139,11 +139,11 @@ app.post('/login', function(req, res) {
                 // Internally, on the server side, it maps the session-id to an object
                 // which contains the value {auth: {userId}}
                 
-                //res.send('credentials correct.');
+                res.send('credentials correct.');
                 
                 // For Android app MyBlog
-                res.setHeader('Content-Type', 'application/json');
-                res.send(JSON.parse('{"message": "credential correct"}'));
+               // res.setHeader('Content-Type', 'application/json');
+                //res.send(JSON.parse('{"message": "credential correct"}'));
             }
             else {
                 //res.status(403).send('username/password is invalid');
