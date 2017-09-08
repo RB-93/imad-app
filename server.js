@@ -91,7 +91,7 @@ app.post('/create-user', function(req, res) {
    //Save the password hash string into the database
    pool.query('INSERT INTO "user" (username, password) VALUES ($1, $2)', [username, dbString], function(err, result) {
        if(err) {
-           res.setHeader('Content-Type', 'application/json');
+           //res.setHeader('Content-Type', 'application/json');
            res.status(500).send(err.toString());
         }
         else {
