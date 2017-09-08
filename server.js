@@ -90,12 +90,12 @@ app.post('/create-user', function(req, res) {
    var dbString = hash(password, salt);
    //Save the password hash string into the database
    pool.query('INSERT INTO "user" (username, password) VALUES ($1, $2)', [username, dbString], function(err, result) {
-       if(err) {
+        if(err) {
            //res.setHeader('Content-Type', 'application/json');
            res.status(500).send(err.toString());
         }
         else {
-            if(result.rows.length === 0) {
+            if(result.username.length === 0 || result.password.length === 0) {
                 //res.status(403).send('username/password is invalid');
                 
                 // For Android app MyBlog
