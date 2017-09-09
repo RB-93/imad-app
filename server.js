@@ -206,11 +206,7 @@ app.get('/get-articles/:articleName', function (req, res) {
     
     pool.query("SELECT * FROM article WHERE heading = $1", [req.params.articleName], function (err, result) {
        if(err) {
-           // res.status(500).send(err.toString());
-           
-           // For anddroid app MyBlog
-           res.setHeader('Content-Type', 'application/json');
-           res.status(500).send(JSON.stringify({"error":err.toString()}));
+           res.status(500).send(err.toString());
        } 
        else {
            if(result.rows.length === 0){
@@ -218,12 +214,32 @@ app.get('/get-articles/:articleName', function (req, res) {
            }
            else {
                
-               //var articleData = result.rows[0]; // articleData object to get the values from the database
-               
+               var articleData = result.rows[0]; // articleData object to get the values from the database
+               res.send(createTemplate(articleData));
+           }
+       }
+    });
+});
+
+app.get('/get-articles', function (req, res) {
+    // articleName == article-one
+    // articles[articleName] == {} content object for article one
+    
+    pool.query("SELECT * FROM article", function (err, result) {
+       if(err) {
+           // res.status(500).send(err.toString());
+           
+           // For anddroid app MyBlog
+           console.error('Error executing query', err.stack);
+           res.status(500).send(err.toString());
+       } 
+       else {
+           if(result.rows.length === 0){
+               res.status(404).send('Article not found.');
+           }
+           else {
                res.setHeader('Content-Type', 'application/json');
                res.send(JSON.stringify(result.rows));
-               
-               // res.send(createTemplate(articleData));
            }
        }
     });
