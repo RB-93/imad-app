@@ -221,7 +221,7 @@ app.get('/get-articles/:articleName', function (req, res) {
                //var articleData = result.rows[0]; // articleData object to get the values from the database
                
                res.setHeader('Content-Type', 'application/json');
-               res.send(JSON.stringify(result.rows[0]));
+               res.send(JSON.stringify(result.rows));
                
                // res.send(createTemplate(articleData));
            }
