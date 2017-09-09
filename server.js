@@ -238,6 +238,7 @@ app.get('/get-articles', function (req, res) {
                res.status(404).send('Article not found.');
            }
            else {
+               
                res.setHeader('Content-Type', 'application/json');
                res.send(JSON.stringify(result.rows));
            }
